@@ -1,17 +1,18 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral, NestedBlockDepth */
 pipeline {
     agent any
-
-    stages {
-
-        stage('Build and Push Docker Image') {
-            environment {
+    environment {
                 DOCKER_REGISTRY = 'neroxxpips'
                 DOCKER_IMAGE_NAME = 'oe-cloud-node-jenkins'
                 DOCKER_IMAGE_TAG = 'latest'
                 DOCKER_PASSWORD = credentials('docker-access-token')
                 DOCKER_USERNAME = 'neroxxpips'
             }
+
+    stages {
+
+        stage('Build and Push Docker Image') {
+            
             steps {
                 sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .'
                 sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
@@ -25,6 +26,7 @@ pipeline {
                 EKS_CLUSTER_NAME = 'OE-DevOps-cluster'
                 AWS_REGION = 'us-east-1'
                 NAMESPACE  = 'oe-jenkins'
+                IMAGE_NAME = '$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG'
             }
             steps {
                 withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
