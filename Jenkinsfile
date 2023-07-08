@@ -24,7 +24,7 @@ pipeline {
             environment {
                 EKS_CLUSTER_NAME = 'OE-DevOps-cluster'
                 AWS_REGION = 'us-east-1'
-                NAMESPACE  = 'oejenkins'
+                NAMESPACE  = 'oe-jenkins'
                 IMAGE_NAME = 'oe-cloud-node-jenkins'
             }
             steps {
