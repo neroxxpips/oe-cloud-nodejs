@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_REGISTRY: 'neroxxpips'
   DOCKER_IMAGE_NAME: 'oe-cloude-node2'
-  DOCKER_IMAGE_TAG: 'latest'
+  DOCKER_IMAGE_TAG: ${{ github.sha }}
   DOCKER_PASSWORD: ${{ secrets.DOCKERPASSWORD }}
   DOCKER_USERNAME: 'neroxxpips'
   NAMESPACE: 'oe-github'
@@ -45,6 +45,7 @@ jobs:
         run: |
           sed -i 's/name_space/${{ env.NAMESPACE }}/' deploy/namespace.yaml
           sed -i 's/__IMAGE_NAME__/${{ env.DOCKER_IMAGE_NAME }}/' deploy/deployment.yaml
+          sed -i 's/__TAG__/${{ env.DOCKER_IMAGE_TAG }}/' deploy/deployment.yaml
           kubectl apply -f deploy/namespace.yaml
           kubectl apply -f deploy/deployment.yaml -f deploy/service.yaml --namespace ${{ env.NAMESPACE }}
 

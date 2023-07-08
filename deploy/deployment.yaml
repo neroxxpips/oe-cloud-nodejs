@@ -16,7 +16,7 @@ spec:
         app: oe-nodejs
     spec:
       containers:
-      - image: neroxxpips/__IMAGE_NAME__:latest
+      - image: neroxxpips/__IMAGE_NAME__:__TAG__
         name: oe-nodejs
         ports:
             - containerPort: 3000
