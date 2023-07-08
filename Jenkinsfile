@@ -32,7 +32,7 @@ pipeline {
                     script {
                         sh('aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION')
                         sh 'sed -i "s/__IMAGE_NAME__/$IMAGE_NAME/" deploy/deployment.yaml'
-                        sh 'sed -i "s/name_space/$NAMESPACE/" deploy/deployment.yaml'
+                        sh 'sed -i "s/name_space/$NAMESPACE/" deploy/namespace.yaml'
                         sh 'kubectl apply -f deploy/namespace.yaml'
                         sh 'kubectl apply -f deploy/deployment.yaml -f deploy/service.yaml --namespace $NAMESPACE'
                     }
