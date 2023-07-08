@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oe-nodejs
+  name: oe-nodejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oe-nodejs
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: oe-nodejs
+    spec:
+      containers:
+      - image: __IMAGE_NAME__
+        name: oe-nodejs
+        ports:
+            - containerPort: 3000
+
